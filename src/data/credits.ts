@@ -1,0 +1,60 @@
+import type { PhotoCredit } from '../types.ts'
+
+export const photoCredits: PhotoCredit[] = [
+  {
+    file: '/images/red-panda.jpg',
+    subject: 'Red panda',
+    artist: 'Mathias Appel',
+    license: 'CC0',
+    licenseUrl: 'https://creativecommons.org/publicdomain/zero/1.0/',
+    source: 'https://commons.wikimedia.org/wiki/File:Red_Panda_(24986761703).jpg',
+  },
+  {
+    file: '/images/meerkat.jpg',
+    subject: 'Meerkat',
+    artist: 'Basile Morin',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Standing_meerkat_looking_behind.jpg',
+  },
+  {
+    file: '/images/gorilla.jpg',
+    subject: 'Western lowland gorilla',
+    artist: 'JosepMGracia',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Portrait_of_western_lowland_silverback.jpg',
+  },
+  {
+    file: '/images/macaw.jpg',
+    subject: 'Scarlet macaw',
+    artist: 'Charles J. Sharp',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Scarlet_macaw_(Ara_macao_cyanopterus)_Copan.jpg',
+  },
+  {
+    file: '/images/frog.jpg',
+    subject: 'Dyeing poison dart frog',
+    artist: 'H. Zell',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Dendrobates_tinctorius_var._azureus_-_Karlsruhe_Zoo_03.jpg',
+  },
+  {
+    file: '/images/komodo.jpg',
+    subject: 'Komodo dragon',
+    artist: 'Charles J. Sharp',
+    license: 'CC BY-SA 4.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/4.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Komodo_dragon_(Varanus_komodoensis).jpg',
+  },
+  {
+    file: '/images/asian-elephant.jpg',
+    subject: 'Asian elephant',
+    artist: 'Yathin S Krishnappa',
+    license: 'CC BY-SA 3.0',
+    licenseUrl: 'https://creativecommons.org/licenses/by-sa/3.0',
+    source: 'https://commons.wikimedia.org/wiki/File:Elephas_maximus_(Bandipur).jpg',
+  },
+]
