@@ -30,10 +30,10 @@ export function PlannerPage() {
     { id: 'solo', label: 'partySolo', detail: 'partySolod' },
   ]
   const interests: { id: InterestOption; label: MessageKey }[] = [
-    { id: 'big-cats', label: 'interestCats' },
-    { id: 'elephants', label: 'interestElephants' },
+    { id: 'savanna', label: 'interestSavanna' },
     { id: 'primates', label: 'interestPrimates' },
-    { id: 'birds', label: 'interestBirds' },
+    { id: 'desert', label: 'interestDesert' },
+    { id: 'australia', label: 'interestAustralia' },
     { id: 'reptiles', label: 'interestReptiles' },
     { id: 'kids', label: 'interestKids' },
     { id: 'conservation', label: 'interestConservation' },
@@ -48,7 +48,7 @@ export function PlannerPage() {
 
   return (
     <>
-      <PageHero eyebrow={t('plannerEyebrow')} title={t('plannerTitle')} lede={t('plannerLede')} image="/images/giraffe.jpg" imageAlt={t('giraffeAlt')} />
+      <PageHero eyebrow={t('plannerEyebrow')} title={t('plannerTitle')} lede={t('plannerLede')} image="/images/animals/small-clawed-otter.jpg" imageAlt={t('otterAlt')} />
       <section className="section">
         <div className="wrap">
           <fieldset className="choice-grid">

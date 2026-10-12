@@ -34,8 +34,8 @@ export function ConservationPage() {
         eyebrow={t('conservationEyebrow')}
         title={t('conservationPageTitle')}
         lede={t('conservationPageLede')}
-        image="/images/elephant.jpg"
-        imageAlt={t('elephantAlt')}
+        image="/images/animals/nubian-ibex.jpg"
+        imageAlt={t('ibexAlt')}
       />
       <section className="section section-forest">
         <div className="wrap stat-grid">

@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom'
 import { useI18n } from '../i18n/context.tsx'
 import { formatLongDate } from '../lib/format.ts'
-import { getHours, regularHours, visitStatus } from '../lib/hours.ts'
+import { regularHours, visitStatus } from '../lib/hours.ts'
+import { useNow } from '../lib/useNow.ts'
 import { useDocumentTitle } from '../lib/useDocumentTitle.ts'
 import { PageHero } from '../components/PageHero.tsx'
 
 export function VisitPage() {
   const { t, locale } = useI18n()
   useDocumentTitle(t('docVisit'))
-  const today = new Date()
-  const hours = getHours(today)
+  const today = useNow()
   const status = visitStatus(today)
   const bring = [
     [t('bringShoes'), t('bringShoesCopy')],
@@ -21,13 +21,13 @@ export function VisitPage() {
 
   return (
     <>
-      <PageHero eyebrow={t('visitPageEyebrow')} title={t('visitPageTitle')} lede={t('visitPageLede')} image="/images/forest.jpg" imageAlt={t('forestAlt')} />
+      <PageHero eyebrow={t('visitPageEyebrow')} title={t('visitPageTitle')} lede={t('visitPageLede')} image="/images/animals/red-deer.jpg" imageAlt={t('deerAlt')} />
       <section className="section" id="hours">
         <div className="wrap visit-grid">
           <div>
             <p className="eyebrow">{t('openingHours')}</p>
             <h2>{t('todayComma')}, {formatLongDate(today)}</h2>
-            <p className="hours-today">{status.message}. {hours.closed ? hours.note : hours.label}.</p>
+            <p className="hours-today">{status.label}. {status.detail}.</p>
             <p>{t('hoursNote')}</p>
             <table className="hours-table">
               <caption>{t('regularHours')}</caption>

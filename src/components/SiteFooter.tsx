@@ -26,6 +26,7 @@ export function SiteFooter() {
         <div>
           <h2>{t('explore')}</h2>
           <Link to="/animals">{t('navAnimals')}</Link>
+          <Link to="/play">{t('navPlay')}</Link>
           <Link to="/map">{t('zooMap')}</Link>
           <Link to="/events">{t('navEvents')}</Link>
           <Link to="/plan">{t('navPlan')}</Link>

@@ -1,8 +1,10 @@
 import { Link, useParams } from 'react-router-dom'
 import { getAnimal, relatedAnimals } from '../data/animals.ts'
 import { getLocation } from '../data/locations.ts'
+import { playProfile } from '../data/play.ts'
 import { localizeAnimal, localizeLocation } from '../i18n/content.ts'
 import { useI18n } from '../i18n/context.tsx'
+import { largeImage } from '../lib/images.ts'
 import { useDocumentTitle } from '../lib/useDocumentTitle.ts'
 import { AnimalCard } from '../components/AnimalCard.tsx'
 import { Breadcrumb, Badge } from '../components/ui.tsx'
@@ -19,6 +21,7 @@ export function AnimalDetailPage() {
   const place = getLocation(animal.locationId)
   const location = place ? localizeLocation(place, locale) : undefined
   const related = relatedAnimals(raw)
+  const mark = playProfile(raw.id)?.emoji ?? '🐾'
   const facts = [
     [t('habitat'), animal.habitat],
     [t('diet'), animal.diet],
@@ -30,8 +33,12 @@ export function AnimalDetailPage() {
 
   return (
     <article>
-      <header className="detail-hero">
-        <img src={animal.images[0]?.src} alt={animal.images[0]?.alt ?? ''} />
+      <header className={animal.images[0] ? 'detail-hero' : 'detail-hero detail-hero--mark'}>
+        {animal.images[0] ? (
+          <img src={largeImage(animal.images[0].src)} alt={animal.images[0].alt} fetchPriority="high" />
+        ) : (
+          <div className="detail-hero__mark" aria-hidden="true">{mark}</div>
+        )}
         <div className="detail-hero__shade" />
         <div className="wrap detail-hero__content">
           <Breadcrumb items={[{ label: t('home'), to: '/' }, { label: t('navAnimals'), to: '/animals' }, { label: animal.name }]} />

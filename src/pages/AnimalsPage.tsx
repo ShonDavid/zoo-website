@@ -8,9 +8,13 @@ import { AnimalGrid } from '../components/AnimalGrid.tsx'
 import { PageHero } from '../components/PageHero.tsx'
 import type { AnimalCategory, ConservationStatus, Continent } from '../types.ts'
 
-const categories: Array<AnimalCategory | 'All'> = ['All', 'Mammals', 'Birds', 'Reptiles', 'Amphibians', 'Fish']
-const continents: Array<Continent | 'All'> = ['All', 'Africa', 'Asia', 'Europe', 'North America', 'South America', 'Oceania', 'Antarctica']
-const statuses: Array<ConservationStatus | 'All'> = ['All', 'Critically Endangered', 'Endangered', 'Vulnerable', 'Near Threatened', 'Least Concern']
+const allCategories: AnimalCategory[] = ['Mammals', 'Birds', 'Reptiles', 'Amphibians', 'Fish']
+const allContinents: Continent[] = ['Africa', 'Asia', 'Europe', 'North America', 'South America', 'Oceania', 'Antarctica']
+const allStatuses: ConservationStatus[] = ['Extinct in the Wild', 'Critically Endangered', 'Endangered', 'Vulnerable', 'Near Threatened', 'Least Concern', 'Not Evaluated']
+
+const categories: Array<AnimalCategory | 'All'> = ['All', ...allCategories.filter((item) => animals.some((animal) => animal.category === item))]
+const continents: Array<Continent | 'All'> = ['All', ...allContinents.filter((item) => animals.some((animal) => animal.continents.includes(item)))]
+const statuses: Array<ConservationStatus | 'All'> = ['All', ...allStatuses.filter((item) => animals.some((animal) => animal.conservationStatus === item))]
 
 export function AnimalsPage() {
   const { t, locale, categoryLabel, continentLabel, statusLabel } = useI18n()
@@ -51,7 +55,7 @@ export function AnimalsPage() {
 
   return (
     <>
-      <PageHero eyebrow={t('animalExplorer')} title={t('findAnimalTitle')} lede={t('findAnimalLede')} image="/images/tiger.jpg" imageAlt={t('tigerAlt')} />
+      <PageHero eyebrow={t('animalExplorer')} title={t('findAnimalTitle')} lede={t('findAnimalLede')} image="/images/animals/zebra.jpg" imageAlt={t('zebraAlt')} />
       <section className="section">
         <div className="wrap">
           <form className="filter-bar" onSubmit={(event) => event.preventDefault()}>
@@ -93,7 +97,7 @@ export function AnimalsPage() {
             ))}
           </fieldset>
           <p className="meta results-count" role="status">{filtered.length} {t('animalsCount')}</p>
-          <AnimalGrid animals={filtered} />
+          <AnimalGrid animals={filtered} empty={t('animalsEmpty')} />
         </div>
       </section>
     </>

@@ -7,6 +7,8 @@ import { localizeArticle, localizeEvent } from '../i18n/content.ts'
 import { useI18n } from '../i18n/context.tsx'
 import { formatShortDate, formatTime, timeToMinutes } from '../lib/format.ts'
 import { getHours, visitStatus } from '../lib/hours.ts'
+import { largeImage } from '../lib/images.ts'
+import { useNow } from '../lib/useNow.ts'
 import { useDocumentTitle } from '../lib/useDocumentTitle.ts'
 import { AnimalCard } from '../components/AnimalCard.tsx'
 import { EventCard } from '../components/EventCard.tsx'
@@ -14,12 +16,21 @@ import { LocationCard } from '../components/LocationCard.tsx'
 import { ZooMap } from '../components/ZooMap.tsx'
 import { Ridge } from '../components/Ridge.tsx'
 import { SectionHeader, StatCard } from '../components/ui.tsx'
+import { Icon } from '../components/Icon.tsx'
+import type { MessageKey } from '../i18n/messages.ts'
+
+const planCards: { to: string; icon: 'clock' | 'pin' | 'water' | 'kids'; title: MessageKey; body: MessageKey }[] = [
+  { to: '/visit#hours', icon: 'clock', title: 'hoursCardTitle', body: 'hoursCard' },
+  { to: '/visit#getting-here', icon: 'pin', title: 'gettingCardTitle', body: 'gettingCard' },
+  { to: '/visit#what-to-bring', icon: 'water', title: 'bringCardTitle', body: 'bringCard' },
+  { to: '/visit#families', icon: 'kids', title: 'familiesCardTitle', body: 'familiesCard' },
+]
 
 export function HomePage() {
   const { t, locale } = useI18n()
   useDocumentTitle(t('docHome'))
   const navigate = useNavigate()
-  const today = new Date()
+  const today = useNow()
   const hours = getHours(today)
   const status = visitStatus(today)
   const todaysEvents = eventsOn(today)
@@ -35,11 +46,15 @@ export function HomePage() {
     <>
       <section className="hero">
         <div className="hero__media">
-          <img src="/images/hero.jpg" alt={t('heroAlt')} fetchPriority="high" />
+          <img src={largeImage('/images/animals/scimitar-oryx.jpg')} alt={t('heroAlt')} fetchPriority="high" />
         </div>
         <div className="hero__shade" />
         <div className="wrap hero__content">
-          <p className="hero__promise">{t('heroPromise')}</p>
+          <p className={`hero__status is-${status.state}`}>
+            <span className="hero__dot" aria-hidden="true" />
+            <strong>{status.label}</strong>
+            <span className="hero__status-detail">{status.detail}</span>
+          </p>
           <h1>{t('heroTitle')}</h1>
           <p className="hero__lede">{t('heroLede')}</p>
           <div className="hero__actions">
@@ -101,6 +116,24 @@ export function HomePage() {
         </div>
       </section>
 
+      <section className="section section--tight">
+        <div className="wrap">
+          <div className="play-banner">
+            <div className="play-banner__copy">
+              <p className="eyebrow">{t('playHomeCta')}</p>
+              <h2>{t('playHomeTitle')}</h2>
+              <p>{t('playHomeLede')}</p>
+              <Link className="btn btn-sun" to="/play">{t('playStart')}</Link>
+            </div>
+            <div className="play-banner__faces" aria-hidden="true">
+              <img src="/images/animals/ring-tailed-lemur.jpg" alt="" loading="lazy" />
+              <img src="/images/animals/small-clawed-otter.jpg" alt="" loading="lazy" />
+              <img src="/images/animals/red-kangaroo.jpg" alt="" loading="lazy" />
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="section section-sand">
         <Ridge tone="sand" />
         <div className="wrap">
@@ -110,7 +143,7 @@ export function HomePage() {
             lede={t('todayEventsLede')}
             action={<Link className="text-link" to="/events">{t('allEvents')}</Link>}
           />
-          <div className="event-list">
+          <div className="event-list event-list--grid">
             {todaysEvents.map((event) => (
               <EventCard key={event.id} event={event} highlighted={event.id === nextEvent?.id} />
             ))}
@@ -131,10 +164,14 @@ export function HomePage() {
         <div className="wrap">
           <SectionHeader eyebrow={t('beforeHome')} title={t('planVisitTitle')} lede={t('planVisitLede')} />
           <div className="plan-grid">
-            <Link to="/visit#hours"><h3>{t('hoursCardTitle')}</h3><p>{t('hoursCard')}</p></Link>
-            <Link to="/visit#getting-here"><h3>{t('gettingCardTitle')}</h3><p>{t('gettingCard')}</p></Link>
-            <Link to="/visit#what-to-bring"><h3>{t('bringCardTitle')}</h3><p>{t('bringCard')}</p></Link>
-            <Link to="/visit#families"><h3>{t('familiesCardTitle')}</h3><p>{t('familiesCard')}</p></Link>
+            {planCards.map((card) => (
+              <Link key={card.to} to={card.to}>
+                <span className="plan-grid__icon"><Icon name={card.icon} /></span>
+                <h3>{t(card.title)}</h3>
+                <p>{t(card.body)}</p>
+                <span className="plan-grid__arrow" aria-hidden="true"><Icon name="arrow" size={18} /></span>
+              </Link>
+            ))}
           </div>
           <div className="center-cta">
             <Link className="btn btn-primary" to="/plan">{t('buildItinerary')}</Link>
@@ -185,7 +222,7 @@ export function HomePage() {
         <Ridge tone="sand" flip />
         <div className="wrap">
           <SectionHeader eyebrow={t('whileHere')} title={t('eatTitle')} lede={t('eatLede')} action={<Link className="text-link" to="/food">{t('foodFacilities')}</Link>} />
-          <div className="location-grid">
+          <div className="location-grid location-grid--pair">
             {food.map((location) => (
               <LocationCard key={location.id} location={location} />
             ))}
@@ -195,7 +232,7 @@ export function HomePage() {
 
       <section className="final-cta">
         <Ridge tone="sand" />
-        <img src="/images/lion-2.jpg" alt="" />
+        <img src="/images/animals/rock-hyrax.jpg" alt="" loading="lazy" />
         <div className="final-cta__shade" />
         <div className="wrap final-cta__content">
           <p className="eyebrow">{t('brandLong')}</p>

@@ -12,7 +12,7 @@ export function NewsPage() {
   const sorted = articles.slice().sort((a, b) => b.date.localeCompare(a.date))
   return (
     <>
-      <PageHero eyebrow={t('newsEyebrow')} title={t('newsTitle')} lede={t('newsLede')} image="/images/tiger.jpg" imageAlt={t('tigerAlt')} />
+      <PageHero eyebrow={t('newsEyebrow')} title={t('newsTitle')} lede={t('newsLede')} image="/images/animals/collared-peccary.jpg" imageAlt={t('peccaryAlt')} imagePosition="50% 62%" />
       <section className="section">
         <div className="wrap news-grid">
           {sorted.map((article) => {

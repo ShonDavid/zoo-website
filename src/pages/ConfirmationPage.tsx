@@ -21,7 +21,7 @@ export function ConfirmationPage() {
     if (!current) return
     let cancel = false
     const payload = `CHAIKEF|${current.id}|${current.visitDate}|${current.total}`
-    toDataURL(payload, { margin: 1, width: 240, color: { dark: '#10241e', light: '#fffdf8' } })
+    toDataURL(payload, { margin: 1, width: 240, color: { dark: '#15351d', light: '#fffdf8' } })
       .then((url: string) => {
         if (!cancel) setQr(url)
       })

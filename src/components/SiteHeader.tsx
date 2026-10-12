@@ -2,17 +2,19 @@ import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { useI18n } from '../i18n/context.tsx'
 import { Icon } from './Icon.tsx'
+import { LanguageMenu } from './LanguageMenu.tsx'
 import { SearchDialog } from './SearchDialog.tsx'
 
 export function SiteHeader() {
   const { pathname } = useLocation()
-  const { t, locale, setLocale } = useI18n()
+  const { t } = useI18n()
   const [scrolled, setScrolled] = useState(() => window.scrollY > 24)
   const [menuOpen, setMenuOpen] = useState(false)
   const [searchOpen, setSearchOpen] = useState(false)
   const overlay = pathname === '/' && !scrolled && !menuOpen
   const links = [
     { to: '/animals', label: t('navAnimals') },
+    { to: '/play', label: t('navPlay') },
     { to: '/visit', label: t('navVisit') },
     { to: '/map', label: t('navMap') },
     { to: '/events', label: t('navEvents') },
@@ -75,15 +77,7 @@ export function SiteHeader() {
           <button type="button" className="icon-btn" aria-label={t('searchZoo')} onClick={() => setSearchOpen(true)}>
             <Icon name="search" />
           </button>
-          <button
-            type="button"
-            className="icon-btn"
-            aria-label={locale === 'he' ? 'English' : 'עברית'}
-            title={locale === 'he' ? 'English' : 'עברית'}
-            onClick={() => setLocale(locale === 'he' ? 'en' : 'he')}
-          >
-            <Icon name="language" />
-          </button>
+          <LanguageMenu />
           <NavLink to="/tickets" className="btn btn-primary btn-ticket">
             <span className="btn-label-long">{t('buyTickets')}</span>
             <span className="btn-label-short">{t('ticketsShort')}</span>

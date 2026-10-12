@@ -14,7 +14,7 @@ export function EventsPage() {
 
   return (
     <>
-      <PageHero eyebrow={t('eventsEyebrow')} title={t('eventsTitle')} lede={t('eventsLede')} image="/images/penguin.jpg" imageAlt={t('penguinAlt')} />
+      <PageHero eyebrow={t('eventsEyebrow')} title={t('eventsTitle')} lede={t('eventsLede')} image="/images/animals/red-kangaroo.jpg" imageAlt={t('kangarooAlt')} />
       <section className="section">
         <div className="wrap">
           <h2>{t('today')} · {formatLongDate(today)}</h2>

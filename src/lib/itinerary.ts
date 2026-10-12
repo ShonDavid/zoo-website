@@ -17,13 +17,13 @@ const timeBudget: Record<TimeOption, number> = {
 }
 
 const animalPlans: Record<InterestOption, string[]> = {
-  'big-cats': ['tiger-territory', 'lion-ridge', 'highland-lookout', 'giraffe-plains'],
-  elephants: ['elephant-savanna', 'giraffe-plains', 'flamingo-lagoon', 'meerkat-manor'],
-  primates: ['gorilla-valley', 'red-panda-forest', 'meerkat-manor', 'rainforest-aviary'],
-  birds: ['rainforest-aviary', 'flamingo-lagoon', 'penguin-coast', 'ocean-pavilion'],
-  reptiles: ['reptile-house', 'amphibian-pavilion', 'ocean-pavilion', 'meerkat-manor'],
-  kids: ['meerkat-manor', 'penguin-coast', 'giraffe-plains', 'flamingo-lagoon', 'rainforest-aviary', 'wonder-playground'],
-  conservation: ['gorilla-valley', 'tiger-territory', 'red-panda-forest', 'elephant-savanna'],
+  savanna: ['africa-yard', 'deer-meadow', 'australia-yard', 'wetland-yard'],
+  primates: ['primate-house', 'lemur-walk', 'small-mammals', 'wetland-yard'],
+  desert: ['cliff-country', 'africa-yard', 'deer-meadow', 'small-mammals'],
+  australia: ['australia-yard', 'small-mammals', 'lemur-walk', 'wetland-yard'],
+  reptiles: ['reptile-house', 'wetland-yard', 'small-mammals', 'cliff-country'],
+  kids: ['lemur-walk', 'australia-yard', 'wetland-yard', 'small-mammals', 'wonder-playground'],
+  conservation: ['primate-house', 'africa-yard', 'cliff-country', 'lemur-walk'],
 }
 
 const timeKeys: Record<TimeOption, 'itineraryHour' | 'itineraryTwo' | 'itineraryFour' | 'itineraryFull'> = {
@@ -40,11 +40,11 @@ const partyKeys: Record<PartyOption, 'forCouple' | 'forFamily' | 'forFriends' | 
   solo: 'forSolo',
 }
 
-const interestKeys: Record<InterestOption, 'aroundCats' | 'aroundElephants' | 'aroundPrimates' | 'aroundBirds' | 'aroundReptiles' | 'aroundKids' | 'aroundConservation'> = {
-  'big-cats': 'aroundCats',
-  elephants: 'aroundElephants',
+const interestKeys: Record<InterestOption, 'aroundSavanna' | 'aroundPrimates' | 'aroundDesert' | 'aroundAustralia' | 'aroundReptiles' | 'aroundKids' | 'aroundConservation'> = {
+  savanna: 'aroundSavanna',
   primates: 'aroundPrimates',
-  birds: 'aroundBirds',
+  desert: 'aroundDesert',
+  australia: 'aroundAustralia',
   reptiles: 'aroundReptiles',
   kids: 'aroundKids',
   conservation: 'aroundConservation',
@@ -70,30 +70,30 @@ function fits(event: ZooEvent, dayEnd: number) {
 function chooseEvent(interest: InterestOption, dayEnd: number, date: Date) {
   const today = new Set(eventsOn(date).map((event) => event.id))
   const preferred =
-    interest === 'big-cats'
-      ? 'lion-talk'
-      : interest === 'elephants'
-        ? dayEnd >= 13 * 60
-          ? 'elephant-talk'
-          : 'giraffe-feeding'
-        : interest === 'birds'
-          ? 'penguin-feeding'
-          : interest === 'reptiles'
-            ? 'reptile-presentation'
-            : interest === 'kids'
-              ? dayEnd >= 15 * 60 + 40
-                ? 'childrens-workshop'
-                : 'penguin-feeding'
-              : interest === 'conservation'
-                ? dayEnd >= 13 * 60
-                  ? 'elephant-talk'
-                  : 'lion-talk'
-                : null
+    interest === 'savanna'
+      ? 'zebra-feeding'
+      : interest === 'primates'
+        ? 'lemur-encounter'
+        : interest === 'desert'
+          ? 'ibex-talk'
+          : interest === 'australia'
+            ? 'kangaroo-feeding'
+            : interest === 'reptiles'
+              ? 'reptile-presentation'
+              : interest === 'kids'
+                ? dayEnd >= 15 * 60 + 40
+                  ? 'childrens-workshop'
+                  : 'kangaroo-feeding'
+                : interest === 'conservation'
+                  ? dayEnd >= 13 * 60
+                    ? 'otter-talk'
+                    : 'ibex-talk'
+                  : null
 
   const candidate = preferred ? getEventById(preferred) : undefined
   if (candidate && today.has(candidate.id) && fits(candidate, dayEnd)) return candidate
-  if (interest === 'birds' || interest === 'kids') {
-    const fallback = getEventById('penguin-feeding')
+  if (interest === 'kids' || interest === 'australia') {
+    const fallback = getEventById('lemur-encounter')
     if (fallback && today.has(fallback.id) && fits(fallback, dayEnd)) return fallback
   }
   return null
@@ -149,9 +149,9 @@ export function buildItinerary(time: TimeOption, party: PartyOption, interest: I
   const picks = unique(animalPlans[interest]).slice(0, limit)
 
   if (party === 'family' && time !== '1h' && !picks.includes('wonder-playground')) picks.push('wonder-playground')
-  if (party === 'solo' && time !== '1h' && !picks.includes('red-panda-forest')) picks.push('red-panda-forest')
-  if ((party === 'couple' || party === 'friends') && (time === '4h' || time === 'full') && !picks.includes('flamingo-lagoon')) {
-    picks.push('flamingo-lagoon')
+  if (party === 'solo' && time !== '1h' && !picks.includes('small-mammals')) picks.push('small-mammals')
+  if ((party === 'couple' || party === 'friends') && (time === '4h' || time === 'full') && !picks.includes('lemur-walk')) {
+    picks.push('lemur-walk')
   }
 
   const flexible: Block[] = [
@@ -186,7 +186,7 @@ export function buildItinerary(time: TimeOption, party: PartyOption, interest: I
     })
   }
   if (time === '4h' || time === 'full') {
-    const lunchId = interest === 'birds' || party === 'couple' ? 'canopy-cafe' : 'savanna-grill'
+    const lunchId = interest === 'australia' || party === 'couple' ? 'canopy-cafe' : 'savanna-grill'
     const lunch = locationBlock(lunchId)
     if (lunch) fixed.push({ ...lunch, fixedStart: 12 * 60 + 15, minutes: 50 })
   }

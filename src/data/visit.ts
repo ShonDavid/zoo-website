@@ -10,7 +10,7 @@ export const zooInfo = {
 export const bringItems = [
   { title: 'Comfortable shoes', text: 'The full loop is about three miles if you do not backtrack.' },
   { title: 'A water bottle', text: 'Refill stations are on the plaza and the savanna loop.' },
-  { title: 'Sunscreen and a hat', text: 'The savanna and flamingo lagoon are bright from late morning.' },
+  { title: 'Sunscreen and a hat', text: 'Africa Yard and Deer Meadow are bright from late morning.' },
   { title: 'A light layer', text: 'Penguin Cove and Coral Hall are kept cool on purpose.' },
   { title: 'A camera you can hold', text: 'Tripods are not allowed in animal habitats.' },
 ]
@@ -18,7 +18,7 @@ export const bringItems = [
 export const familyNotes = [
   { title: 'Strollers', text: 'Welcome on every main path. A small fleet can be hired at the Main Entrance while stocks last, and returned to The Nest.' },
   { title: 'Baby changing', text: 'Tables in the plaza, savanna, and coast restrooms. The plaza also has an adult changing bench.' },
-  { title: 'Children’s areas', text: 'Little Wilds playground, Cub Club workshops at 15:00, and the meerkat wall built at child height.' },
+  { title: 'Children’s areas', text: 'Wonder Playground, the Discovery Den workshop at 15:00, and the low windows at Wetland Yard.' },
   { title: 'Family rest', text: 'Picnic Lawn allows brought-in food. Cub Club has a nursing chair and a low-sensory corner between workshops.' },
 ]
 
@@ -57,15 +57,15 @@ export const conservationStats = [
 export const conservationPillars = [
   {
     title: 'Endangered species',
-    text: 'Breeding programmes for gorillas, red pandas, and snow leopards are coordinated with other zoos so the population stays healthy — and so field teams have a reason to keep habitat standing.',
+    text: 'The signs name animals that are critically endangered, endangered, vulnerable, or extinct in the wild, including the cotton-top tamarin and the scimitar-horned oryx.',
   },
   {
     title: 'Habitat protection',
-    text: 'Ticket income is tagged to corridors for elephants, nest beaches for sea turtles, and forest fragments for lemurs. The pavilion shows this season’s map.',
+    text: 'The visit is tied to habitat stories you can read on the signs: dry country for the oryx, forest for the lemurs, and cliffs for the ibex.',
   },
   {
     title: 'Breeding programmes',
-    text: 'Births here are planned, not collected. The elephant calf, the gorilla group, and the incoming snow leopard all sit inside those plans.',
+    text: 'Arrivals here are planned. The chinchillas, the cotton-tops, and the oryx group all sit inside those plans.',
   },
   {
     title: 'Education',

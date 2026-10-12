@@ -14,6 +14,7 @@ import { NewsArticlePage } from './pages/NewsArticlePage.tsx'
 import { NewsPage } from './pages/NewsPage.tsx'
 import { NotFoundPage } from './pages/NotFoundPage.tsx'
 import { PlannerPage } from './pages/PlannerPage.tsx'
+import { PlayPage } from './pages/PlayPage.tsx'
 import { SearchPage } from './pages/SearchPage.tsx'
 import { TicketsPage } from './pages/TicketsPage.tsx'
 import { VisitPage } from './pages/VisitPage.tsx'
@@ -26,6 +27,7 @@ export default function App() {
           <Route index element={<HomePage />} />
           <Route path="animals" element={<AnimalsPage />} />
           <Route path="animals/:slug" element={<AnimalDetailPage />} />
+          <Route path="play" element={<PlayPage />} />
           <Route path="map" element={<MapPage />} />
           <Route path="events" element={<EventsPage />} />
           <Route path="events/:slug" element={<EventDetailPage />} />

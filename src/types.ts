@@ -10,11 +10,13 @@ export type Continent =
   | 'Antarctica'
 
 export type ConservationStatus =
-  | 'Least Concern'
-  | 'Near Threatened'
-  | 'Vulnerable'
-  | 'Endangered'
+  | 'Extinct in the Wild'
   | 'Critically Endangered'
+  | 'Endangered'
+  | 'Vulnerable'
+  | 'Near Threatened'
+  | 'Least Concern'
+  | 'Not Evaluated'
 
 export type LocationCategory =
   | 'animals'
@@ -32,10 +34,10 @@ export type TicketTypeId = 'adult' | 'child' | 'senior' | 'family' | 'student'
 export type TimeOption = '1h' | '2h' | '4h' | 'full'
 export type PartyOption = 'couple' | 'family' | 'friends' | 'solo'
 export type InterestOption =
-  | 'big-cats'
-  | 'elephants'
+  | 'savanna'
   | 'primates'
-  | 'birds'
+  | 'desert'
+  | 'australia'
   | 'reptiles'
   | 'kids'
   | 'conservation'
